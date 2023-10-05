@@ -1,4 +1,4 @@
-using AccountPayableVendorInterfaces;
+using Interfaces.Vendor;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AccountPayableAPI.Controllers;

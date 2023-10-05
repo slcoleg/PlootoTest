@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 
-namespace AccountPayableVendorInterfaces
+namespace Interfaces.Vendor;
+
+/// <summary>
+/// Vendor Interface
+/// </summary>
+public interface IVendor
 {
-  /// <summary>
-  /// Vendor Interface
-  /// </summary>
-  public interface IVendor
-  {
     /// <summary>
     /// Gets or sets the address.
     /// </summary>
@@ -29,7 +29,7 @@ namespace AccountPayableVendorInterfaces
     /// The identifier.
     /// </value>
     public int Id { get; set; }
-    
+
     /// <summary>
     /// Gets or sets the name.
     /// </summary>
@@ -37,7 +37,7 @@ namespace AccountPayableVendorInterfaces
     /// The name.
     /// </value>
     public string Name { get; set; }
-    
+
     /// <summary>
     /// Gets or sets the payment settimgs.
     /// </summary>
@@ -45,5 +45,4 @@ namespace AccountPayableVendorInterfaces
     /// The payment settimgs.
     /// </value>
     public List<IVendorPayment> PaymentSettimgs { get; set; }
-  }
 }
