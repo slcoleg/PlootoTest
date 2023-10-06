@@ -54,10 +54,10 @@ public interface IInvoice
   DateOnly IssuedDate { get; set; }
 
   /// <summary>
-  /// Gets or sets the status of invoice.
+  /// Gets or sets the state of invoice.
   /// </summary>
   /// <value>
   /// The status.
   /// </value>
-  int Status { get; set; }
+  int State { get; set; }
 }

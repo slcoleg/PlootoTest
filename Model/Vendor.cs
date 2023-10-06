@@ -1,11 +1,13 @@
 ﻿using Interfaces.Vendor;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Model.Vendor;
+namespace Model;
 
 /// <summary>
 /// Vendor
 /// </summary>
-/// <seealso cref="Interfaces.Vendor.IVendor" />
+/// <seealso cref="IVendor" />
 public class Vendor : IVendor
 {
   /// <summary>
@@ -14,6 +16,7 @@ public class Vendor : IVendor
   /// <value>
   /// The identifier.
   /// </value>
+  [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
   public int Id { get; set; }
 
   /// <summary>
@@ -22,6 +25,8 @@ public class Vendor : IVendor
   /// <value>
   /// The name.
   /// </value>
+  [Required]
+  [StringLength(50)]
   public string Name { get; set; }
 
   /// <summary>
@@ -30,6 +35,7 @@ public class Vendor : IVendor
   /// <value>
   /// The description.
   /// </value>
+  [StringLength(250)]
   public string Description { get; set; }
 
   /// <summary>
@@ -38,13 +44,26 @@ public class Vendor : IVendor
   /// <value>
   /// The address.
   /// </value>
+  [Required]
+  [StringLength(250)]
   public string Address { get; set; }
 
   /// <summary>
-  /// Gets or sets the payment settimgs.
+  /// Gets or sets the state.
   /// </summary>
   /// <value>
-  /// The payment settimgs.
+  /// The state.
   /// </value>
-  public List<IVendorPayment> PaymentSettimgs { get; set; } = new List<IVendorPayment>();
+  [Required]
+  public int State { get; set; } = 1;
+
+  /// <summary>
+  /// Gets or sets the modified.
+  /// </summary>
+  /// <value>
+  /// The modified.
+  /// </value>
+  [Required]
+  [DataType(DataType.Date)]
+  public DateTime Modified { get; set; } = DateTime.Now;
 }

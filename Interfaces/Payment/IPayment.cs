@@ -46,18 +46,18 @@ public interface IPayment
   DateTime DebitDate { get; set; }
 
   /// <summary>
-  /// Gets or sets the payment information.
-  /// </summary>
-  /// <value>
-  /// The payment information.
-  /// </value>
-  string PaymentInfo { get; set; }
-
-  /// <summary>
   /// Gets or sets the type of the payment.
   /// </summary>
   /// <value>
   /// The type of the payment.
   /// </value>
   int PaymentType { get; set; }
+
+  /// <summary>
+  /// Gets or sets the state.
+  /// </summary>
+  /// <value>
+  /// The state.
+  /// </value>
+  int State { get; set; }
 }

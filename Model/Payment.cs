@@ -1,6 +1,8 @@
 ﻿using Interfaces.Payment;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Model.Payment;
+namespace Model;
 
 /// <summary>
 /// Payment record
@@ -13,6 +15,7 @@ public class Payment : IPayment
   /// <value>
   /// The identifier.
   /// </value>
+  [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
   public int Id { get; set; }
 
   /// <summary>
@@ -21,6 +24,7 @@ public class Payment : IPayment
   /// <value>
   /// The vendor identifier.
   /// </value>
+  [Required]
   public int VendorId { get; set; }
 
   /// <summary>
@@ -29,6 +33,7 @@ public class Payment : IPayment
   /// <value>
   /// The invoice identifier.
   /// </value>
+  [Required]
   public int InvoiceId { get; set; }
 
   /// <summary>
@@ -37,6 +42,7 @@ public class Payment : IPayment
   /// <value>
   /// The amount.
   /// </value>
+  [Required]
   public decimal Amount { get; set; }
 
   /// <summary>
@@ -45,15 +51,9 @@ public class Payment : IPayment
   /// <value>
   /// The debit date.
   /// </value>
+  [Required]
   public DateTime DebitDate { get; set; }
 
-  /// <summary>
-  /// Gets or sets the payment information.
-  /// </summary>
-  /// <value>
-  /// The payment information.
-  /// </value>
-  public string PaymentInfo { get; set; }
 
   /// <summary>
   /// Gets or sets the type of the payment.
@@ -61,6 +61,8 @@ public class Payment : IPayment
   /// <value>
   /// The type of the payment.
   /// </value>
+  [Required]
+  [Range(0, 2)]
   public int PaymentType { get; set; }
 
   /// <summary>
@@ -69,5 +71,7 @@ public class Payment : IPayment
   /// <value>
   /// The status.
   /// </value>
-  int Status { get; set; }
+  [Required]
+  [Range(0, 2)]
+  public int State { get; set; }
 }

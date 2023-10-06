@@ -1,4 +1,7 @@
-﻿namespace Model.Invoice;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Model;
 
 /// <summary>
 /// Vendor invoice
@@ -11,6 +14,7 @@ public class Invoice : Interfaces.Invoice.IInvoice
   /// <value>
   /// The identifier.
   /// </value>
+  [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
   public int Id { get; set; }
 
   /// <summary>
@@ -19,6 +23,7 @@ public class Invoice : Interfaces.Invoice.IInvoice
   /// <value>
   /// The vendor identifier.
   /// </value>
+  [Required]
   public int VendorId { get; set; }
 
   /// <summary>
@@ -27,6 +32,8 @@ public class Invoice : Interfaces.Invoice.IInvoice
   /// <value>
   /// The due date.
   /// </value>
+  [Required]
+  [DataType(DataType.Date)]
   public DateOnly DueDate { get; set; }
 
   /// <summary>
@@ -35,6 +42,8 @@ public class Invoice : Interfaces.Invoice.IInvoice
   /// <value>
   /// The issued date.
   /// </value>
+  [Required]
+  [DataType(DataType.Date)]
   public DateOnly IssuedDate { get; set; }
 
   /// <summary>
@@ -43,7 +52,18 @@ public class Invoice : Interfaces.Invoice.IInvoice
   /// <value>
   /// The amount.
   /// </value>
+  [Required]
+  [DataType(DataType.Currency)]
   public decimal Amount { get; set; }
+
+  /// <summary>
+  /// Gets or sets the state.
+  /// </summary>
+  /// <value>
+  /// The state.
+  /// </value>
+  [Required]
+  public int State { get; set; } = 0;
 
   /// <summary>
   /// Gets or sets the description.
