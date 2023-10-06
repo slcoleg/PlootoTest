@@ -1,5 +1,4 @@
-﻿using Interfaces.Invoice;
-using Interfaces.Vendor;
+﻿using Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;

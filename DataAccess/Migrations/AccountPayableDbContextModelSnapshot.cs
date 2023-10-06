@@ -29,10 +29,10 @@ namespace DataAccess.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("TEXT");
 
-                    b.Property<DateOnly>("DueDate")
+                    b.Property<DateTime>("DueDate")
                         .HasColumnType("TEXT");
 
-                    b.Property<DateOnly>("IssuedDate")
+                    b.Property<DateTime>("IssuedDate")
                         .HasColumnType("TEXT");
 
                     b.Property<int>("State")
@@ -61,7 +61,7 @@ namespace DataAccess.Migrations
                     b.Property<int>("InvoiceId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("PaymentType")
+                    b.Property<int>("PaymentMethod")
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("VendorId")
@@ -87,16 +87,10 @@ namespace DataAccess.Migrations
                         .HasMaxLength(250)
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime>("Modified")
-                        .HasColumnType("TEXT");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("TEXT");
-
-                    b.Property<int>("State")
-                        .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 

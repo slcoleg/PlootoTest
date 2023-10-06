@@ -113,72 +113,32 @@ __Vendor__
 
 Methods to implement:
 
-  * __Get__ `/api/vendor/` - returns list of all vendors, but not payment info
-  * __Get__ `/api/vendor/` with JSON payload  - returns list of all vendors, but not payment info
-    * JSON payload:
-    ```json
-    {
-      "active": true // Returns only active vendors if `true` or all vendors otherwise
-    }
-    ```
-  * __Get__ `/api/vendor/:id` - returns one vendor selected by `id` or 404; where `id` is integer.
+  * __Get__ `/api/vendor/` - returns list of all vendors
 
 __Invoice__
 
 Methods to implement:
   * __Get__ `/api/invoice/` - returns list of all invoices
-  * __Get__ `/api/invoice/` with JSON payload  - returns list of all vendors, but not payment info
-    * JSON payload:
-      ```json
-      {
-        "status": 1, // Returns only paid invoices
-        "validate": true, // Perform invoice validation
-        "invoices": [] // comma separated list of invoices to return 
-      }
-      ```
-      Where <br>
-        `status=0` means all invoices but errored, <br>
-        `status=1` means not paid and not errored, <br>
-        `status=3` means paid, <br>
-        `status=4` means invoice cannot be processed/errored<br>
-      Where `invoices` is not empty, method should return only invoices listed with status defined above
-      Where `"validate": true` preform validation and add validation status to result 
-
-  * __Get__ `/api/invoice/:id` - returns one invoice selected by `id` or 404; where `id` is integer.
-  * __PATCH__ `/api/invoice/` with JSON payload - returns OK along with list.
-    * JSON payload:
-    ```json
-    {
-      "invoices": [] // list of invoices to change status to `paid`
-    }
-    ```
+  * __Get__ `/api/invoice/{id}` - returns one invoice selected by `id` or 404 when invoice not gound; where `id` is integer.
+  * __PATCH__ `/api/invoice/{id}?newState={newState}` where `newState` is integer
 
 __Payment__
 
 Methods to implement:
   * __Get__ `/api/payment/` - returns list of all payments
-  * __Get__ `/api/payment/` with JSON payload  - returns list of all payments
-    * JSON payload:
-      ```json
-      {
-        "status": 1, // Returns only paid invoices
-        "from": startDate,
-        "to": endDate,
-      }
-      ```
-      Where <br>
-        `status=0` means all invoices<br>
-        `status=1` means not paid and not errored, <br>
-        `status=3` means paid, <br>
-        `status=4` means invoice cannot be processed/errored<br>
-      When `from` specified - return invoices with payment date is equal or greater than `startDate`<br>
-      When `to` specified - return invoices with payment date is less or equal than `endDate`
+  * __Get__ `/api/payment/{id}` - returns one payment selected by `id` or 404 when payment not gound; where `id` is integer
   * __Post__ `/api/payment/` with JSON payload - returns OK and list of paid invoices.
     * JSON payload:
     ```json
-    {
-      "invoices": [] // list of invoices to execute payment
-    }
+      [
+        {
+          "vendorId": 0,
+          "invoiceId": 0,
+          "amount": 0,
+          "debitDate": "2023-10-06T17:28:46.039Z",
+          "paymentMethod": 1,
+        }
+      ]
     ```
 
 ## Conflicting designs or technology choices

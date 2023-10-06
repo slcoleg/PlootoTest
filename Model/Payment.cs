@@ -1,4 +1,4 @@
-﻿using Interfaces.Payment;
+﻿using Interfaces;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -63,15 +63,13 @@ public class Payment : IPayment
   /// </value>
   [Required]
   [Range(0, 2)]
-  public int PaymentType { get; set; }
+  public int PaymentMethod { get; set; }
 
   /// <summary>
-  /// Gets or sets the status.
+  /// Gets the name of the payment method.
   /// </summary>
   /// <value>
-  /// The status.
+  /// The name of the payment method.
   /// </value>
-  [Required]
-  [Range(0, 2)]
-  public int State { get; set; }
+  public PaymentType PaymentMethodName => (Model.PaymentType) PaymentMethod;
 }

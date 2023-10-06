@@ -14,6 +14,7 @@ builder.Services.AddDbContext<AccountPayableDbContext>();
 builder.Services.AddScoped<IVendorRepository, VendorRepository>();
 builder.Services.AddScoped<IInvoiceRepository, InvoiceRepository>();
 builder.Services.AddScoped<IPaymentRepository, PaymentRepository>();
+builder.Services.AddHealthChecks();
 
 var app = builder.Build();
 
@@ -24,11 +25,13 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+app.UseMiddleware(typeof(ApiKeyMiddleware));
+
+// app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
-// app.UseMiddleware(typeof(ApiKeyMiddleware));
+app.MapHealthChecks("/");
 
 app.MapControllers();
 

@@ -1,4 +1,4 @@
-﻿using Interfaces.Vendor;
+﻿using Interfaces;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -47,23 +47,4 @@ public class Vendor : IVendor
   [Required]
   [StringLength(250)]
   public string Address { get; set; }
-
-  /// <summary>
-  /// Gets or sets the state.
-  /// </summary>
-  /// <value>
-  /// The state.
-  /// </value>
-  [Required]
-  public int State { get; set; } = 1;
-
-  /// <summary>
-  /// Gets or sets the modified.
-  /// </summary>
-  /// <value>
-  /// The modified.
-  /// </value>
-  [Required]
-  [DataType(DataType.Date)]
-  public DateTime Modified { get; set; } = DateTime.Now;
 }

@@ -1,12 +1,13 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Interfaces;
 
 namespace Model;
 
 /// <summary>
 /// Vendor invoice
 /// </summary>
-public class Invoice : Interfaces.Invoice.IInvoice
+public class Invoice : IInvoice
 {
   /// <summary>
   /// Gets or sets the identifier.
@@ -33,8 +34,8 @@ public class Invoice : Interfaces.Invoice.IInvoice
   /// The due date.
   /// </value>
   [Required]
-  [DataType(DataType.Date)]
-  public DateOnly DueDate { get; set; }
+  [DataType(DataType.DateTime)]
+  public DateTime DueDate { get; set; }
 
   /// <summary>
   /// Gets or sets the issued date.
@@ -43,8 +44,8 @@ public class Invoice : Interfaces.Invoice.IInvoice
   /// The issued date.
   /// </value>
   [Required]
-  [DataType(DataType.Date)]
-  public DateOnly IssuedDate { get; set; }
+  [DataType(DataType.DateTime)]
+  public DateTime IssuedDate { get; set; }
 
   /// <summary>
   /// Gets or sets the amount.

@@ -1,4 +1,4 @@
-﻿using Interfaces.Vendor;
+﻿using Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
@@ -25,12 +25,12 @@ public class VendorRepository : IVendorRepository
   /// </summary>
   /// <param name="activeOnly">if set to <c>true</c> [active only].</param>
   /// <returns></returns>
-  public async Task<IEnumerable<IVendor>> GetAllAsync(bool activeOnly = true)
+  public async Task<IEnumerable<IVendor>> GetAllAsync()
   {
     // for performance, get from cache
     try
     {
-      return activeOnly ? await _ctx.Vendors.Where(x => x.State != 0).ToListAsync() : await _ctx.Vendors.ToListAsync();
+      return await _ctx.Vendors.ToListAsync();
     }
     catch (Exception ex)
     {

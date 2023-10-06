@@ -1,6 +1,6 @@
 using DataAccess;
 using DataAccess.Repository;
-using Interfaces.Vendor;
+using Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -31,7 +31,6 @@ public class VendorController : ControllerBase
   /// <summary>
   /// Get list of vendors.
   /// </summary>
-  /// <param name="activeOnly">The active only. Default is false</param>
   /// <returns></returns>
   /// <example>
   /// GET: api/Vendor
@@ -40,9 +39,9 @@ public class VendorController : ControllerBase
   [HttpGet]
   [ProducesResponseType(200, Type = typeof(IEnumerable<IVendor>))]
   [ProducesResponseType(404)]
-  public async Task<ActionResult<IEnumerable<IVendor>>> GetVendors(bool? activeOnly)
+  public async Task<ActionResult<IEnumerable<IVendor>>> GetVendors()
   {
-    var list = await _repo.GetAllAsync(activeOnly ?? false);
+    var list = await _repo.GetAllAsync();
     return Ok(list);
   }
 }

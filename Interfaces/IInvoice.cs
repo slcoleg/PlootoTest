@@ -1,4 +1,4 @@
-﻿namespace Interfaces.Invoice;
+﻿namespace Interfaces;
 
 /// <summary>
 /// Invoice interface
@@ -43,7 +43,7 @@ public interface IInvoice
   /// <value>
   /// The due date.
   /// </value>
-  DateOnly DueDate { get; set; }
+  DateTime DueDate { get; set; }
 
   /// <summary>
   /// Gets or sets the issued date.
@@ -51,7 +51,7 @@ public interface IInvoice
   /// <value>
   /// The issued date.
   /// </value>
-  DateOnly IssuedDate { get; set; }
+  DateTime IssuedDate { get; set; }
 
   /// <summary>
   /// Gets or sets the state of invoice.

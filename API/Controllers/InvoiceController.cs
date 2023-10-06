@@ -1,9 +1,7 @@
 using DataAccess;
 using DataAccess.Repository;
-using Interfaces.Invoice;
-using Interfaces.Vendor;
+using Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace AccountPayableAPI.Controllers;
 
@@ -40,20 +38,21 @@ public class InvoiceController : ControllerBase
   /// </example>
   [HttpGet]
   [ProducesResponseType(200, Type = typeof(IEnumerable<IInvoice>))]
-  public async Task<ActionResult<IEnumerable<IInvoice>>> GetIncoices(int? state)
+  public async Task<ActionResult<IEnumerable<IInvoice>>> GetInvoices(int? state)
   {
     var list = await _repo.GetAllAsync(state);
     return Ok(list);
   }
 
-  // GET: api/invoice/[id]
   /// <summary>
   /// Gets the invoice.
   /// </summary>
   /// <param name="id">The identifier.</param>
-  /// <returns></returns>
+  /// <example>
+  /// GET: api/invoice/[id]
+  /// </example>
   [HttpGet("{id}", Name = nameof(GetInvoice))] // named route
-  [ProducesResponseType(200, Type = typeof(IVendor))]
+  [ProducesResponseType(200, Type = typeof(IInvoice))]
   [ProducesResponseType(404)]
   public async Task<ActionResult<IInvoice>> GetInvoice(int id)
   {
@@ -63,6 +62,25 @@ public class InvoiceController : ControllerBase
       return NotFound(); // 404 Resource not found
     }
     return Ok(c); // 200 OK with customer in body
+  }
+
+  /// <summary>
+  /// Gets the invoice.
+  /// </summary>
+  /// <param name="id">The identifier.</param>
+  /// <param name="newState">The new state.</param>
+  /// <returns></returns>
+  /// <example>
+  /// PATCH: api/invoice/[id]?newState=[newState]
+  /// </example>
+  [HttpPatch("{id}", Name = nameof(GetInvoice))] // named route
+  [ProducesResponseType(200, Type = typeof(IInvoice))]
+  [ProducesResponseType(400)]
+  [ProducesResponseType(404)]
+  public async Task<ActionResult<IInvoice>> UpdateInvoiceState(int id, int newState)
+  {
+    var c = await _repo.UpdateAsync(id, newState);
+    return c ? Ok(c) : BadRequest(newState);
   }
 
 }

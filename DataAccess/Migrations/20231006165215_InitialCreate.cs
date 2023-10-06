@@ -18,8 +18,8 @@ namespace DataAccess.Migrations
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     VendorId = table.Column<int>(type: "INTEGER", nullable: false),
-                    DueDate = table.Column<DateOnly>(type: "TEXT", nullable: false),
-                    IssuedDate = table.Column<DateOnly>(type: "TEXT", nullable: false),
+                    DueDate = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    IssuedDate = table.Column<DateTime>(type: "TEXT", nullable: false),
                     Amount = table.Column<decimal>(type: "TEXT", nullable: false),
                     State = table.Column<int>(type: "INTEGER", nullable: false),
                     Description = table.Column<string>(type: "TEXT", nullable: true)
@@ -39,7 +39,7 @@ namespace DataAccess.Migrations
                     InvoiceId = table.Column<int>(type: "INTEGER", nullable: false),
                     Amount = table.Column<decimal>(type: "TEXT", nullable: false),
                     DebitDate = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    PaymentType = table.Column<int>(type: "INTEGER", nullable: false)
+                    PaymentMethod = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -54,9 +54,7 @@ namespace DataAccess.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     Name = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
                     Description = table.Column<string>(type: "TEXT", maxLength: 250, nullable: true),
-                    Address = table.Column<string>(type: "TEXT", maxLength: 250, nullable: false),
-                    State = table.Column<int>(type: "INTEGER", nullable: false),
-                    Modified = table.Column<DateTime>(type: "TEXT", nullable: false)
+                    Address = table.Column<string>(type: "TEXT", maxLength: 250, nullable: false)
                 },
                 constraints: table =>
                 {

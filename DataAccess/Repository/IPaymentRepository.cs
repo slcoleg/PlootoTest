@@ -1,11 +1,11 @@
-﻿using Interfaces.Payment;
+﻿using Interfaces;
 
 namespace DataAccess.Repository
 {
-  public interface IPaymentRepository
+    public interface IPaymentRepository
   {
-    Task<bool> AddAsync(IPayment payment);
-    Task<IEnumerable<IPayment>> GetAllAsync(int? state);
+    Task<IEnumerable<IPayment>> GetAllAsync();
     Task<IPayment> GetByIdAsync(int id);
+    Task<IEnumerable<IPayment>> AddAsync(IPayment[] payments);
   }
 }

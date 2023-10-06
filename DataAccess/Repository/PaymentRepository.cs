@@ -1,6 +1,4 @@
-﻿using Interfaces.Invoice;
-using Interfaces.Payment;
-using Interfaces.Vendor;
+﻿using Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
@@ -27,12 +25,12 @@ public class PaymentRepository : IPaymentRepository
   /// </summary>
   /// <param name="state">if set [with state only].</param>
   /// <returns></returns>
-  public async Task<IEnumerable<IPayment>> GetAllAsync(int? state)
+  public async Task<IEnumerable<IPayment>> GetAllAsync()
   {
     // for performance, get from cache
     try
     {
-      return state.HasValue ? await _ctx.Payments.Where(x => x.State != state.Value).ToListAsync() : await _ctx.Payments.ToListAsync();
+      return await _ctx.Payments.ToListAsync();
     }
     catch (Exception ex)
     {
@@ -65,29 +63,45 @@ public class PaymentRepository : IPaymentRepository
   /// </summary>
   /// <param name="payment">The payment.</param>
   /// <returns></returns>
-  public async Task<bool> AddAsync(IPayment payment)
+  public async Task<IEnumerable<IPayment>> AddAsync(IPayment[] payments)
   {
     // for performance, get from cache
     try
     {
-      if (payment == null)
+      if (payments == null)
       {
-        return false;
+        return null;
       }
-      var existingPayment = await _ctx.Payments.FirstOrDefaultAsync(x => x.VendorId == payment.VendorId && x.InvoiceId == payment.InvoiceId);
-      if (existingPayment == null)
+      var ids = payments.Select(x => x.InvoiceId).ToList();
+      // Simple validation if invoice already paid (payment record exists) but not marked as paid
+      var existingPayments = _ctx.Payments.Where(_ => ids.Contains(_.InvoiceId)).ToList();
+      foreach (var payment in payments)
       {
-        await _ctx.AddAsync(payment);
-        _ctx.SaveChanges();
-        _logger.LogInformation($"Created payment for Invoice with id={payment.InvoiceId} for vendor {payment.VendorId}.");
-        return true;
+        var existingPayment = existingPayments.FirstOrDefault(_ => _.InvoiceId == payment.InvoiceId && _.VendorId == payment.VendorId);
+        if (existingPayment == null)
+        {
+          try
+          {
+            await _ctx.AddAsync(payment);
+          }
+          catch (Exception inEx)
+          {
+            _logger.LogWarning($"Cannot create payment for Invoice.", inEx);
+          }
+        }
+        else
+        {
+          // Possible double payment
+          _logger.LogWarning($"Cannot create payment for Invoice with id={payment.InvoiceId} for vendor {payment.VendorId}. Invoice already paid. Payment id={existingPayment.Id}");
+        }
       }
-      _logger.LogWarning($"Cannot create payment for Invoice with id={payment.InvoiceId} for vendor {payment.VendorId}. Invoice already paid. Payment id={existingPayment.Id}");
-      return false;
+      await _ctx.SaveChangesAsync();
+      _logger.LogInformation($"Created payment for Invoices.");
+      return payments;
     }
     catch (Exception ex)
     {
-      _logger.LogError($"Cannot create payment for Invoice withid={payment.InvoiceId} for vendor {payment.VendorId}.", ex);
+      _logger.LogError($"Cannot create payment for Invoices.", ex);
       throw;
     }
   }

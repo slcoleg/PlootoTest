@@ -1,10 +1,10 @@
-﻿using Interfaces.Vendor;
+﻿using Interfaces;
 
 namespace DataAccess.Repository
 {
-  public interface IVendorRepository
+    public interface IVendorRepository
   {
-    Task<IEnumerable<IVendor>> GetAllAsync(bool active = true);
+    Task<IEnumerable<IVendor>> GetAllAsync();
     Task<IVendor> GetByIdAsync(int id);
   }
 }

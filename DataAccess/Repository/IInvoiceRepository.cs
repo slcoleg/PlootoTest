@@ -1,8 +1,8 @@
-﻿using Interfaces.Invoice;
+﻿using Interfaces;
 
 namespace DataAccess.Repository
 {
-  public interface IInvoiceRepository
+    public interface IInvoiceRepository
   {
     Task<IEnumerable<IInvoice>> GetAllAsync(int? state);
     Task<IInvoice> GetByIdAsync(int id);
