@@ -24,7 +24,8 @@
       "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}/swagger",
       "environmentVariables": {
         "ASPNETCORE_URLS": "http://+:80",
-        "X-ApiKey": "local api"
+        "X-ApiKey": "local api",
+        "ASPNETCORE_ENVIRONMENT": "docker"
       },
       "publishAllPorts": true,
       "useSSL": false
@@ -36,6 +37,7 @@
     "anonymousAuthentication": true,
     "iisExpress": {
       "applicationUrl": "http://localhost:4282",
+      "sslPort": 0
     }
   }
 }

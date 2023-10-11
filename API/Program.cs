@@ -1,8 +1,13 @@
 using AccountPayableAPI.MiidleWare;
+using API;
 using DataAccess;
 using DataAccess.Repository;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Add environment to configuration
+builder.Configuration.AddEnvironmentVariables();
 
 // Add services to the container.
 
@@ -18,8 +23,12 @@ builder.Services.AddHealthChecks();
 
 var app = builder.Build();
 
+// Apply migration
+app.MigrateDatabase();
+
+
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+if (!app.Environment.IsProduction())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
