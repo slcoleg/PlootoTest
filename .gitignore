@@ -475,8 +475,10 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+
 # Temp files
-**.7z
-ref.txt
+**/**.7z
+**/ref.txt
+
 # Dev Database
-AccountPayable.db
+**/[Aa]ccount[Pp]ayable.db
